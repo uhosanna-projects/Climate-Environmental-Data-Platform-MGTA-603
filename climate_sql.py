@@ -1,13 +1,11 @@
-import pandas as pd
-import mysql.connector
-import pandas as pd
-from db_config import MYSQL_CONFIG, load_table
+from sqlalchemy import text
+
 from clean import clean, sensors_data, weather_data, stations_data, date_data, fact_measures
 from db_config import get_engine
-from sqlalchemy import create_engine, text
+from db_config import load_table
+from load import load
 
-
-df = pd.read_csv('/Users/mahsa/Desktop/603/Final Project/unified.csv')
+df = load('data/*.csv')
 
 df = clean(df)
 sensor = sensors_data(df)
