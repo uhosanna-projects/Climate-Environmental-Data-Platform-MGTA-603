@@ -2,9 +2,10 @@ import networkx as nx
 import pandas as pd
 from matplotlib import pyplot as plt
 from neo4j import GraphDatabase
-
 from config_neo4j import host, port, user, password
 from config_sql import get_engine
+
+
 
 uri = f"neo4j://{host}:{port}"
 driver = GraphDatabase.driver(uri, auth=(user, password))
