@@ -1,8 +1,8 @@
 from sqlalchemy import text
 
 from clean import clean, sensors_data, weather_data, stations_data, date_data, fact_measures
-from db_config import get_engine
-from db_config import load_table
+from config_sql import get_engine
+from config_sql import load_table
 from load import load
 
 df = load('data/*.csv')

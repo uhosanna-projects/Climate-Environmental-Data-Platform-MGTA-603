@@ -1,7 +1,7 @@
 import pandas as pd
 from sqlalchemy import create_engine
 
-from db_config import get_engine
+from config_sql import get_engine
 
 engine = get_engine()
 

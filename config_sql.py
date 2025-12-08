@@ -1,4 +1,4 @@
-# db_config.py
+# config_sql.py
 import os
 import urllib
 
@@ -14,11 +14,7 @@ MYSQL_CONFIG = {
     "port": os.getenv("MYSQL_PORT", 3306),
 }
 
-MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017")
-MONGO_DB = os.getenv("MONGO_DB", "climate")
-MONGO_COLLECTION = os.getenv("MONGO_COLLECTION", "station_month")
-
-# db_config.py
+# config_sql.py
 from sqlalchemy import create_engine
 
 def get_engine():
