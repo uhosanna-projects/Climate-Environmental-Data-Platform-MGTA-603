@@ -32,13 +32,10 @@ load_table(date,    "dim_date")
 load_table(fact,    "fact_measurement")
 
 with engine.connect() as con:
-    # con.execute(text("ALTER TABLE dim_sensor DROP PRIMARY KEY"))
     con.execute(text("ALTER TABLE dim_sensor ADD PRIMARY KEY (sensor_id)"))
-    # con.execute(text("ALTER TABLE dim_date DROP PRIMARY KEY"))
     con.execute(text("ALTER TABLE dim_date ADD PRIMARY KEY (date_key)"))
     con.execute(text("ALTER TABLE dim_station MODIFY station_id VARCHAR(10) NOT NULL"))
     con.execute(text("ALTER TABLE fact_measurement MODIFY station_id VARCHAR(10) NOT NULL"))
-    # con.execute(text("ALTER TABLE dim_station DROP PRIMARY KEY"))
     con.execute(text("ALTER TABLE dim_station ADD PRIMARY KEY (station_id)"))
     con.execute(text("ALTER TABLE fact_measurement ADD FOREIGN KEY (sensor_id) REFERENCES dim_sensor(sensor_id)"))
     con.execute(text("ALTER TABLE fact_measurement ADD FOREIGN KEY (date_key) REFERENCES dim_date(date_key)"))
