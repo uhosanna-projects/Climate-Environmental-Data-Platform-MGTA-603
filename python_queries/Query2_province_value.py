@@ -1,5 +1,8 @@
 import pandas as pd
 from sqlalchemy import create_engine
+from sqlalchemy import text
+from config_sql import get_engine
+from redis_query_log import cache_recent_query
 
 from config_sql import get_engine
 
@@ -37,3 +40,8 @@ y = province_value["avg_value"]
 
 plt.plot(x, y)
 plt.show()
+
+cache_recent_query(query)         # <--- Log into Redis
+
+df = pd.read_sql(text(query), engine)
+print(df.head())

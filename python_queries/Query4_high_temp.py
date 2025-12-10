@@ -1,5 +1,8 @@
 import pandas as pd
 from sqlalchemy import create_engine
+from sqlalchemy import text
+from config_sql import get_engine
+from redis_query_log import cache_recent_query
 
 from config_sql import get_engine
 
@@ -52,3 +55,8 @@ plt.xticks(rotation=45, ha='right')  # rotate labels if there are many stations
 
 plt.tight_layout()
 plt.show()
+
+cache_recent_query(query)         # <--- Log into Redis
+
+df = pd.read_sql(text(query), engine)
+print(df.head())

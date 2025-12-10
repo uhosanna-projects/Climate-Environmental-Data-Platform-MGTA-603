@@ -1,5 +1,8 @@
 import pandas as pd
 from sqlalchemy import create_engine
+from sqlalchemy import text
+from config_sql import get_engine
+from redis_query_log import cache_recent_query
 
 from config_sql import get_engine
 
@@ -27,3 +30,7 @@ high_temp = pd.read_sql_query(query, engine)
 # 4) Look at the result
 print(high_temp)
 
+cache_recent_query(query)         # <--- Log into Redis
+
+df = pd.read_sql(text(query), engine)
+print(df.head())
