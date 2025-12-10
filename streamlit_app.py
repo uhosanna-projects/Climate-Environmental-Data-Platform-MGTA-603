@@ -16,6 +16,8 @@ from config_neo4j import host, port, user, password
 from pymongo import MongoClient
 from neo4j import GraphDatabase
 from ETL_pipelines.climate_neo4j import run_query
+from leaderboard_utils import fetch_leaderboard
+
 
 
 # ===========================================================
@@ -261,6 +263,63 @@ if st.button("Show Station Graph"):
     ax.set_xlabel("Longitude")
     ax.set_ylabel("Latitude")
     st.pyplot(fig)
+
+
+
+# ===========================================================
+#   Section: Redis Leaderboards
+# ===========================================================
+st.header("🏆 Climate Station Leaderboards (Redis)")
+
+st.markdown(
+    """
+    This section reads from **Redis** and shows:
+    - Top **hottest** stations (by mean temperature)
+    - Top **wettest** stations (by total precipitation)
+    """
+)
+
+# --- Sidebar controls for leaderboards ---
+st.sidebar.header("Leaderboard Controls")
+
+metric = st.sidebar.selectbox(
+    "Metric",
+    options=["hottest", "wettest"],
+    format_func=lambda x: "Hottest stations" if x == "hottest" else "Wettest stations"
+)
+
+# your ETL currently uses 30 days in the key
+days = 30
+top_n = st.sidebar.slider(
+    "Number of stations to show (leaderboard)",
+    min_value=5,
+    max_value=50,
+    value=10,
+    step=5,
+)
+
+# --- Fetch data from Redis ---
+df_lb = fetch_leaderboard(metric=metric, days=days, top_n=top_n)
+
+if df_lb.empty:
+    st.warning("No leaderboard data found. Did you run the Redis ETL pipeline?")
+else:
+    title_map = {
+        "hottest": "Top Hottest Stations (Mean Temperature)",
+        "wettest": "Top Wettest Stations (Total Precipitation)",
+    }
+    st.subheader(title_map[metric])
+
+    # Show table
+    st.dataframe(df_lb, use_container_width=True)
+
+    # Simple bar chart of scores
+    st.markdown("#### Score comparison")
+    chart_df = df_lb.set_index("Station Name")["Score"]
+    st.bar_chart(chart_df)
+
+
+
 
 
 

@@ -1,16 +1,11 @@
 from sqlalchemy import text
-<<<<<<< HEAD
-import pandas as pd
-from clean import clean, sensors_data, weather_data, stations_data, date_data, fact_measures
-=======
 
 from clean import clean, sensors_data, stations_data, date_data, fact_measures
->>>>>>> a0f48fbd8a3ea6ea4c7ac70080c916f457d47161
 from config_sql import get_engine
 from config_sql import load_table
 from load import load
 
-df = load('/Users/hosannaudoh/Documents/GitHub/Climate-Environmental-Data-Platform-MGTA-603/data/*.csv')
+df = load('../data/*.csv')
 
 df = clean(df)
 sensor = sensors_data(df)
