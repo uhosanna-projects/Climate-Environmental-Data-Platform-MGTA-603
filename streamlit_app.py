@@ -12,11 +12,9 @@ import networkx as nx
 # ---- Your config files ----
 from config_sql import get_engine
 from config_mongo import MONGO_URI, MONGO_DB, MONGO_COLLECTION
-from config_neo4j import host, port, user, password
 from pymongo import MongoClient
-from neo4j import GraphDatabase
 from ETL_pipelines.climate_neo4j import run_query
-from leaderboard_utils import fetch_leaderboard
+from python_queries_forNosql.leaderboard_utils import fetch_leaderboard
 
 
 

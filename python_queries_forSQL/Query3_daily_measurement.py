@@ -1,8 +1,6 @@
 import pandas as pd
-from sqlalchemy import create_engine
 from sqlalchemy import text
-from config_sql import get_engine
-from redis_query_log import cache_recent_query
+from python_queries_forNosql.redis_query_log import cache_recent_query
 
 from config_sql import get_engine
 
