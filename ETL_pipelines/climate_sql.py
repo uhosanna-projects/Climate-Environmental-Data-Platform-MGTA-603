@@ -1,6 +1,6 @@
 from sqlalchemy import text
 
-from clean import clean, sensors_data, weather_data, stations_data, date_data, fact_measures
+from clean import clean, sensors_data, stations_data, date_data, fact_measures
 from config_sql import get_engine
 from config_sql import load_table
 from load import load
@@ -9,7 +9,6 @@ df = load('data/*.csv')
 
 df = clean(df)
 sensor = sensors_data(df)
-weather = weather_data(df)
 station = stations_data(df)
 date = date_data(df)
 fact = fact_measures(df)
@@ -26,7 +25,6 @@ with engine.begin() as conn:
 
 # 4) Load dimensions first, then fact
 load_table(sensor,  "dim_sensor")
-load_table(weather, "dim_weather")    # if you have this table
 load_table(station, "dim_station")
 load_table(date,    "dim_date")
 load_table(fact,    "fact_measurement")

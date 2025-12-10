@@ -45,7 +45,7 @@ WITH s1, s2,
      point({latitude:s1.latitude, longitude:s1.longitude}) AS p1,
      point({latitude:s2.latitude, longitude:s2.longitude}) AS p2
 WITH s1, s2, point.distance(p1,p2)/1000 AS km
-WHERE km < 100  // set your radius threshold
+WHERE km < 150  // set your radius threshold
 MERGE (s1)-[:NEAR {distance_km:km}]->(s2)
 """
 
