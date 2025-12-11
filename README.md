@@ -1,4 +1,6 @@
 # 🌦️ Climate-Environmental-Data-Platform-MGTA-603
+Hosanna Udoh (200870740)
+Mahsa Belgari(255842120)
 
 This project implements an end-to-end polyglot data platform for analyzing Canadian climate data using MySQL, MongoDB, Neo4j, Redis, and Streamlit.
 The system supports data ingestion, cleaning, transformation, storage, aggregation, and visualization.
